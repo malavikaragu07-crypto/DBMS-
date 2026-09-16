@@ -1,0 +1,77 @@
+CREATE DATABASE CLOTHING_STORE;
+USE CLOTHING_STORE;
+
+CREATE TABLE Category(
+    Category INT PRIMARY KEY,
+    CategoryName VARCHAR(50)
+);
+
+CREATE TABLE Product
+(
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(100),
+    Price DECIMAL(10,2),
+    Stock INT,
+    Category INT,
+    FOREIGN KEY (Category)
+    REFERENCES Category(Category)
+);
+
+INSERT INTO Category VALUES
+(1, "MENS WEAR"),
+(2, "WOMENS WEAR"),
+(3, "KIDS WEAR"),
+(4, "FOOTWEAR"),
+(5, "ACCESSORIES");
+
+SELECT * FROM Category;
+
+INSERT INTO Product VALUES
+(101, "T-SHIRT", 599, 40, 1),
+(102, "JEANS", 1299, 30, 1),
+(103, "SHIRT", 899, 25, 1),
+(104, "HOODIE", 1499, 20, 1),
+(105, "JACKET", 1999, 15, 1),
+
+(106, "KURTI", 799, 35, 2),
+(107, "SAREE", 1499, 25, 2),
+(108, "TOP", 699, 40, 2),
+(109, "DRESS", 1199, 30, 2),
+(110, "PALAZZO", 899, 25, 2),
+
+(111, "KIDS T-SHIRT", 399, 35, 3),
+(112, "KIDS JEANS", 699, 25, 3),
+(113, "KIDS FROCK", 799, 30, 3),
+(114, "KIDS HOODIE", 899, 20, 3),
+(115, "KIDS SHORTS", 499, 40, 3),
+
+(116, "RUNNING SHOES", 1999, 20, 4),
+(117, "SNEAKERS", 1499, 25, 4),
+(118, "SANDALS", 699, 30, 4),
+(119, "FORMAL SHOES", 1799, 15, 4),
+(120, "SLIPPERS", 399, 35, 4),
+
+(121, "BELT", 499, 30, 5),
+(122, "HANDBAG", 1299, 20, 5),
+(123, "CAP", 399, 35, 5),
+(124, "WALLET", 699, 25, 5),
+(125, "SUNGLASSES", 999, 15, 5);
+
+SELECT * FROM Product;
+
+UPDATE Product
+SET Price = 650,
+    Stock = 45
+WHERE ProductID = 101;
+
+SELECT * FROM Product
+WHERE ProductID = 101;
+
+DELETE FROM Product
+WHERE ProductID = 108;
+
+DELETE FROM Product
+WHERE Category = 5;
+
+SELECT * FROM Product
+ORDER BY Category;
