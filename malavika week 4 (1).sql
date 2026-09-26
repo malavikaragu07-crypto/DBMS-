@@ -1,0 +1,129 @@
+USE CLOTHING_STORE;
+
+CREATE TABLE Orders
+(
+    OrderID INT PRIMARY KEY,
+    CustomerName VARCHAR(100),
+    ProductID INT,
+    Qty INT,
+    TotalAmt DECIMAL(10,2),
+    OrderStatus VARCHAR(20),
+    FOREIGN KEY (ProductID)
+    REFERENCES Product(ProductID)
+);
+
+INSERT INTO Orders VALUES
+(401, 'ANU', 101, 2, 1300, 'PENDING'),
+(402, 'PRIYA', 102, 1, 1299, 'PENDING'),
+(403, 'KAVYA', 103, 2, 1798, 'DELIVERED'),
+(404, 'RAJ', 104, 1, 1499, 'PENDING'),
+(405, 'DIVYA', 105, 1, 1999, 'DELIVERED'),
+(406, 'ARUN', 106, 2, 1598, 'PENDING'),
+(407, 'NITHYA', 107, 1, 1499, 'DELIVERED'),
+(408, 'SURESH', 109, 2, 2398, 'PENDING'),
+(409, 'MEENA', 110, 1, 899, 'DELIVERED'),
+(410, 'KARTHIK', 111, 2, 798, 'PENDING'),
+(411, 'POOJA', 112, 1, 699, 'DELIVERED'),
+(412, 'RAVI', 113, 2, 1598, 'PENDING'),
+(413, 'HARINI', 114, 1, 899, 'DELIVERED'),
+(414, 'VISHNU', 115, 2, 998, 'PENDING'),
+(415, 'SANDHYA', 116, 1, 1999, 'DELIVERED'),
+(416, 'GOKUL', 117, 2, 2998, 'PENDING'),
+(417, 'JANANI', 118, 1, 699, 'DELIVERED'),
+(418, 'ROHITH', 119, 1, 1799, 'PENDING'),
+(419, 'DHARSHINI', 120, 2, 798, 'DELIVERED'),
+(420, 'NAVEEN', 101, 3, 1950, 'PENDING');
+
+
+CREATE TABLE Order_Details
+(
+    OrderDetailID INT PRIMARY KEY,
+    OrderID INT,
+    ProductID INT,
+    Qty INT,
+    UnitPrice DECIMAL(10,2),
+
+    FOREIGN KEY (OrderID)
+    REFERENCES Orders(OrderID),
+
+    FOREIGN KEY (ProductID)
+    REFERENCES Product(ProductID)
+);
+
+INSERT INTO Order_Details VALUES
+(501, 401, 101, 2, 650),
+(502, 402, 102, 1, 1299),
+(503, 403, 103, 2, 899),
+(504, 404, 104, 1, 1499),
+(505, 405, 105, 1, 1999),
+(506, 406, 106, 2, 799),
+(507, 407, 107, 1, 1499),
+(508, 408, 109, 2, 1199),
+(509, 409, 110, 1, 899),
+(510, 410, 111, 2, 399),
+(511, 411, 112, 1, 699),
+(512, 412, 113, 2, 799),
+(513, 413, 114, 1, 899),
+(514, 414, 115, 2, 499),
+(515, 415, 116, 1, 1999),
+(516, 416, 117, 2, 1499),
+(517, 417, 118, 1, 699),
+(518, 418, 119, 1, 1799),
+(519, 419, 120, 2, 399),
+(520, 420, 101, 3, 650);
+
+
+SELECT * FROM Orders;
+
+SELECT * FROM Order_Details;
+
+
+UPDATE Orders
+SET OrderStatus = "SHIPPED"
+WHERE OrderID = 401;
+
+
+UPDATE Orders
+SET OrderStatus = "DELIVERED"
+WHERE OrderID = 402;
+
+
+SELECT * FROM Orders
+ORDER BY CustomerName;
+
+
+SELECT * FROM Orders
+WHERE CustomerName = "PRIYA"
+ORDER BY OrderID;
+
+
+SELECT * FROM Orders
+WHERE OrderStatus = "PENDING";
+
+
+SELECT * FROM Orders
+WHERE OrderStatus = "SHIPPED";
+
+
+SELECT * FROM Orders
+WHERE OrderStatus = "DELIVERED";
+
+
+SELECT CustomerName, COUNT(*) AS TotalOrders
+FROM Orders
+GROUP BY CustomerName;
+
+
+SELECT CustomerName, SUM(TotalAmt) AS TotalAmountSpent
+FROM Orders
+GROUP BY CustomerName;
+
+
+SELECT * FROM Orders;
+
+SELECT * FROM Order_Details;
+
+
+DROP TABLE IF EXISTS Order_Details;
+
+DROP TABLE IF EXISTS Orders;
